@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineStream Pro | Unlimited Movies & Shows</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0f1014;
+            --secondary: #191b24;
+            --accent: #e50914;
+            --text: #ffffff;
+            --text-secondary: #b3b3b3;
+            --highlight: #00a8ff;
+            --admin: #6a0dad;
+        }
+
+        body {
+            background-color: var(--primary);
+            color: var(--text);
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(to bottom, rgba(15, 16, 20, 0.9), transparent);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: background 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(15, 16, 20, 0.95);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin: 0 15px;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box {
+            position: relative;
+            margin-right: 20px;
+        }
+
+        .search-box input {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 30px;
+            padding: 10px 20px 10px 40px;
+            color: var(--text);
+            width: 200px;
+            transition: width 0.3s, background 0.3s;
+        }
+
+        .search-box input:focus {
+            width: 250px;
+            background: rgba(255, 255, 255, 0.15);
+            outline: none;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        .user-menu {
+            position: relative;
+        }
+
+        .user-btn {
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .user-btn img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            margin-right: 8px;
+            object-fit: cover;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 85vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(to right, rgba(15, 16, 20, 0.9), rgba(15, 16, 20, 0.6));
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            padding: 0 50px;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+
+        .hero-meta {
+            display: flex;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .hero-meta span {
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-meta i {
+            color: var(--accent);
+            margin-right: 5px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #f40612;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(229, 9, 20, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn-admin {
+            background: var(--admin);
+            color: white;
+        }
+
+        .btn-admin:hover {
+            background: #5a0a9d;
+            transform: translateY(-2px);
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        /* Content Sections */
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 70%;
+            width: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .view-all {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .view-all:hover {
+            color: var(--accent);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .content-card {
+            background: var(--secondary);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            height: 100%;
+        }
+
+        .content-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+        }
+
+        .card-img {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .content-card:hover .card-img img {
+            transform: scale(1.1);
+        }
+
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .content-card:hover .card-overlay {
+            opacity: 1;
+        }
+
+        .card-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .card-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .card-btn:hover {
+            background: var(--accent);
+            transform: scale(1.1);
+        }
+
+        .card-content {
+            padding: 15px;
+        }
+
+        .card-content h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .card-type {
+            background: rgba(229, 9, 20, 0.2);
+            color: var(--accent);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+        }
+
+        .rating i {
+            color: gold;
+            margin-right: 3px;
+            font-size: 12px;
+        }
+
+        /* Categories */
+        .categories {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding: 10px 0;
+            margin-bottom: 30px;
+        }
+
+        .categories::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-btn {
+            background: var(--secondary);
+            color: var(--text);
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .category-btn.active, .category-btn:hover {
+            background: var(--accent);
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            background: rgba(30, 30, 40, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+        }
+
+        .admin-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .admin-header h2 {
+            font-size: 28px;
+            margin-right: 20px;
+        }
+
+        .admin-header i {
+            color: var(--admin);
+            font-size: 32px;
+        }
+
+        .upload-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            background: var(--secondary);
+            color: var(--text);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: var(--admin);
+        }
+
+        .upload-form {
+            background: rgba(25, 27, 36, 0.7);
+            border-radius: 10px;
+            padding: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            font-size: 16px;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .season-section {
+            background: rgba(40, 40, 55, 0.5);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .season-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .remove-btn {
+            background: rgba(229, 9, 20, 0.3);
+            color: var(--text);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .remove-btn:hover {
+            background: rgba(229, 9, 20, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            padding: 60px 0 30px;
+            margin-top: 40px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-links a i {
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .menu-toggle {
+                display: block;
+                font-size: 24px;
+                color: white;
+                background: none;
+                border: none;
+                margin-right: 15px;
+                cursor: pointer;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                height: 70vh;
+            }
+            
+            .hero-content {
+                padding: 0 20px;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .search-box {
+                display: none;
+            }
+
+            .admin-panel {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                height: 60vh;
+            }
+            
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero-content p {
+                font-size: 0.95rem;
+            }
+            
+            .section-title {
+                font-size: 20px;
+            }
+            
+            .content-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 15px;
+            }
+            
+            .card-img {
+                height: 220px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background: var(--secondary);
+            z-index: 2000;
+            transition: right 0.3s ease;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .close-menu {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+        }
+
+        .mobile-nav-links li {
+            margin-bottom: 15px;
+        }
+
+        .mobile-nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 18px;
+            display: block;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1500;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-film"></i>CineStream
+                </a>
+                
+                <ul class="nav-links">
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#">Movies</a></li>
+                    <li><a href="#">TV Shows</a></li>
+                    <li><a href="#">Web Series</a></li>
+                    <li><a href="#">New & Popular</a></li>
+                    <li><a href="#">My List</a></li>
+                    <li><a href="#" id="admin-link">Admin Panel</a></li>
+                </ul>
+                
+                <div class="nav-right">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search...">
+                    </div>
+                    
+                    <button class="menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    
+                    <div class="user-menu">
+                        <button class="user-btn">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
+                            <span>Admin</span>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="overlay"></div>
+    <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="logo">
+                <i class="fas fa-film"></i>CineStream
+            </div>
+            <button class="close-menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <ul class="mobile-nav-links">
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="#">Movies</a></li>
+            <li><a href="#">TV Shows</a></li>
+            <li><a href="#">Web Series</a></li>
+            <li><a href="#">New & Popular</a></li>
+            <li><a href="#">My List</a></li>
+            <li><a href="#">Admin Panel</a></li>
+            <li><a href="#">Account Settings</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg">
+            <img src="https://source.unsplash.com/random/1920x1080/?movie" alt="Featured Movie">
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>John Wick: Chapter 4</h1>
+                <div class="hero-meta">
+                    <span><i class="fas fa-star"></i> 8.5/10</span>
+                    <span><i class="fas fa-clock"></i> 169 min</span>
+                    <span><i class="fas fa-calendar"></i> 2023</span>
+                    <span><i class="fas fa-tag"></i> Action, Thriller</span>
+                </div>
+                <p>John Wick uncovers a path to defeating The High Table. But before he can earn his freedom, Wick must face off against a new enemy with powerful alliances across the globe and forces that turn old friends into foes.</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-primary">
+                        <i class="fas fa-play"></i> Watch Now
+                    </a>
+                    <a href="#" class="btn btn-secondary">
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admin Upload Panel -->
+    <section class="section">
+        <div class="container">
+            <div class="admin-panel">
+                <div class="admin-header">
+                    <h2>Content Management</h2>
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                
+                <div class="upload-tabs">
+                    <button class="tab-btn active" data-tab="movie">Movie</button>
+                    <button class="tab-btn" data-tab="tvshow">TV Show</button>
+                    <button class="tab-btn" data-tab="webseries">Web Series</button>
+                </div>
+                
+                <div class="upload-form">
+                    <form id="uploadForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="title">Title *</label>
+                                <input type="text" id="title" placeholder="Enter title" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="year">Release Year *</label>
+                                <input type="number" id="year" min="1900" max="2025" placeholder="2023" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="genre">Genre *</label>
+                                <input type="text" id="genre" placeholder="Action, Drama, Comedy" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="rating">Rating</label>
+                                <input type="number" id="rating" min="0" max="10" step="0.1" placeholder="8.5">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="description">Description *</label>
+                            <textarea id="description" placeholder="Enter description..." required></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="poster">Poster URL *</label>
+                                <input type="url" id="poster" placeholder="https://example.com/poster.jpg" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="video">Video URL *</label>
+                                <input type="url" id="video" placeholder="https://example.com/video.mp4" required>
+                            </div>
+                        </div>
+                        
+                        <!-- TV Show/Web Series Specific Fields -->
+                        <div id="seriesFields" style="display: none;">
+                            <div class="form-group">
+                                <label>Seasons & Episodes</label>
+                                <div id="seasonsContainer">
+                                    <!-- Seasons will be added here dynamically -->
+                                </div>
+                                <button type="button" class="btn btn-secondary" id="addSeasonBtn">
+                                    <i class="fas fa-plus"></i> Add Season
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-admin">
+                                <i class="fas fa-upload"></i> Upload Content
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Sections -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Recently Added</h2>
+                <a href="#" class="view-all">View All</a>
+            </div>
+            
+            <div class="content-grid">
+                <!-- Content cards will be added here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>About CineStream</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">CineStream is your ultimate destination for streaming movies, TV shows, and web series. Enjoy unlimited entertainment anytime, anywhere.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Movies</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> TV Shows</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Web Series</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> New Releases</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Action</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Comedy</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Drama</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Thriller</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Sci-Fi</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> FAQ</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Help Center</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Use</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 CineStream. All Rights Reserved. Designed with <i class="fas fa-heart" style="color: var(--accent);"></i> for movie lovers.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const overlay = document.querySelector('.overlay');
+        const closeMenu = document.querySelector('.close-menu');
+        
+        menuToggle.addEventListener('click', function() {
+            mobileMenu.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeMenu.addEventListener('click', function() {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        overlay.addEventListener('click', function() {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Category buttons active state
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+        
+        // Tab functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const seriesFields = document.getElementById('seriesFields');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Update active tab
+                tabBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show/hide season fields
+                const tabType = this.getAttribute('data-tab');
+                if (tabType === 'movie') {
+                    seriesFields.style.display = 'none';
+                } else {
+                    seriesFields.style.display = 'block';
+                }
+            });
+        });
+        
+        // Add season functionality
+        let seasonCount = 1;
+        const seasonsContainer = document.getElementById('seasonsContainer');
+        const addSeasonBtn = document.getElementById('addSeasonBtn');
+        
+        function createSeasonElement(seasonNum) {
+            const seasonDiv = document.createElement('div');
+            seasonDiv.className = 'season-section';
+            seasonDiv.innerHTML = `
+                <div class="season-header">
+                    <h4>Season ${seasonNum}</h4>
+                    <button type="button" class="remove-btn">Remove</button>
+                </div>
+                <div class="form-group">
+                    <label for="season${seasonNum}-episodes">Number of Episodes</label>
+                    <input type="number" id="season${seasonNum}-episodes" min="1" value="10" required>
+                </div>
+                <div class="form-group">
+                    <label for="season${seasonNum}-title">Season Title (Optional)</label>
+                    <input type="text" id="season${seasonNum}-title" placeholder="Season ${seasonNum}">
+                </div>
+            `;
+            
+            // Add remove button functionality
+            const removeBtn = seasonDiv.querySelector('.remove-btn');
+            removeBtn.addEventListener('click', function() {
+                seasonDiv.remove();
+                // Update season numbers
+                const seasons = seasonsContainer.querySelectorAll('.season-section');
+                seasons.forEach((season, index) => {
+                    season.querySelector('h4').textContent = `Season ${index + 1}`;
+                });
+            });
+            
+            return seasonDiv;
+        }
+        
+        addSeasonBtn.addEventListener('click', function() {
+            seasonCount++;
+            seasonsContainer.appendChild(createSeasonElement(seasonCount));
+        });
+        
+        // Add initial season
+        seasonsContainer.appendChild(createSeasonElement(seasonCount));
+        
+        // Form submission
+        const uploadForm = document.getElementById('uploadForm');
+        const contentGrid = document.querySelector('.content-grid');
+        
+        uploadForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const title = document.getElementById('title').value;
+            const year = document.getElementById('year').value;
+            const genre = document.getElementById('genre').value;
+            const rating = document.getElementById('rating').value || 'N/A';
+            const description = document.getElementById('description').value;
+            const poster = document.getElementById('poster').value;
+            const video = document.getElementById('video').value;
+            
+            // Get content type
+            const activeTab = document.querySelector('.tab-btn.active').getAttribute('data-tab');
+            let contentType = 'Movie';
+            if (activeTab === 'tvshow') contentType = 'TV Show';
+            if (activeTab === 'webseries') contentType = 'Web Series';
+            
+            // Create content card
+            const contentCard = document.createElement('div');
+            contentCard.className = 'content-card';
+            contentCard.innerHTML = `
+                <div class="card-img">
+                    <img src="${poster}" alt="${title}">
+                    <div class="card-overlay">
+                        <div class="card-buttons">
+                            <button class="card-btn"><i class="fas fa-play"></i></button>
+                            <button class="card-btn"><i class="fas fa-download"></i></button>
+                            <button class="card-btn"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3>${title}</h3>
+                    <div class="card-meta">
+                        <div class="card-type">${contentType}</div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i> ${rating}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Add to grid at the beginning
+            contentGrid.insertBefore(contentCard, contentGrid.firstChild);
+            
+            // Show success message
+            alert(`${title} has been successfully uploaded!`);
+            
+            // Reset form
+            uploadForm.reset();
+            seasonsContainer.innerHTML = '';
+            seasonCount = 1;
+            seasonsContainer.appendChild(createSeasonElement(seasonCount));
+        });
+        
+        // Scroll to admin panel
+        document.getElementById('admin-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector('.admin-panel').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
